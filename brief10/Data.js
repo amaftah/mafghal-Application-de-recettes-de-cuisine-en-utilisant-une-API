@@ -6,7 +6,7 @@ var userInput= document.getElementById("userInput");
 userInput.addEventListener("input",searchFunct);
 
 
-for(let i=0; i<6 ; i++) {
+for(let i=0; i<9 ; i++) {
     fetch(`https://www.themealdb.com/api/json/v1/1/random.php`)
         .then((response)=> response.json())
         .then((data)=>{
@@ -70,54 +70,61 @@ function searchFunct(){
     
 }
 
-
-function linkdetails(mealId) {
+function linkdetails(mealId){
   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`)
-    .then((response) => response.json())
-    .then((idData) => receipeModal(idData.meals));
+  .then((response) => response.json())
+  .then((idData)  => receipeModal(idData.meals));
 }
-
 
 function receipeModal(meal){
-    meal = meal[0];
-    let count = 1;
-    let Ingredients = "";
-  
-    for (let i in meal) {
-      console.log(meal["strIngredient" + count]);
-      while (meal["strIngredient" + count] !== "") {
-        Ingredients += "<li>" + meal["strIngredient" + count] + "</li>";
-        count++;
-      }
-    }
-  
-    let html =
-      "<div class='modal fade m-auto' aria-labelledby='exampleModalLabel' id='exampleModal' tabindex='-1' style='display:flex; opacity:1; aria.hidden='true'><div class='modal-dialog'>" +
-      "<div class='modal-content'><div class='modal-header'><h1 class='modal-title fs-5' id='exampleModalLabel'>" +
-      meal.strMeal +
-      "</h1>" +
-      "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button></div>" +
-      "<div class='modal-body'>" +
-      "<img src=" +
-      meal.strMealThumb +
-      " class='img-thumbnail ' style='height:200px;'>" +
-      "<h4>" +
-      meal.strCategory +
-      "</h4>" +
-      "<h4>" +
-      meal.strArea +
-      "</h4>" +
-      "<ul>" +
-      Ingredients +
-      "</ul>" +
-      "<h4>" +
-      meal.strInstructions +
-      "</h4>" +
-      "</div></div></div></div>";
-  
-    document.getElementById("searchResult").insertAdjacentHTML("afterend", html);
-  
-    document.querySelector(".btn-close").addEventListener("click", () => {
-      document.getElementById("exampleModal").style.display = "none";
-    });
+meal = meal[0];
+let count = 1;
+let Ingredients = "";
+
+for (let i in meal) {
+
+  console.log(meal["strIngredient" + count]);
+  while (meal["strIngredient" + count] !== "") {
+    Ingredients += "<li>" + meal["strIngredient" + count] + "</li>";
+    count++;
+  }  
 }
+let html =
+"<div class='modal fade m-auto' aria-labelledby='exampleModalLabel' id='exampleModal' tabindex='-1' style='display:flex; opacity:1; aria.hidden='true'><div class='modal-dialog modal-dialog-centered modal-dialog-scrollable'>" +
+"<div class='modal-content'><div class ='modal-body'><div class='modal-header'><h1 class='modal-title fs-5' id='exampleModalLabel'>" +
+meal.strMeal +
+"</h1>" +
+"<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button></div>" +
+"<div class='modal-body'>" +
+"<img src=" +
+meal.strMealThumb +
+" class='img-thumbnail ' style='height:200px;'>" +
+"<h4>" +
+meal.strCategory +
+"</h4>" +
+"<h4>" +
+meal.strArea +
+"</h4>" +
+"<ul>" +
+Ingredients +
+"</ul>" +
+"<h4>" +
+meal.strInstructions +
+"</h4>" +
+"</div></div></div></div>";
+
+document.getElementById("searchResult").insertAdjacentHTML("afterend", html);
+
+document.querySelector(".btn-close").addEventListener("click", () => {
+document.getElementById("exampleModal").style.display = "none";
+
+});
+
+}
+
+
+
+
+
+
+
